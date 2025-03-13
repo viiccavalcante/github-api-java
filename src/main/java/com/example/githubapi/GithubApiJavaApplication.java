@@ -1,4 +1,4 @@
-package com.example.github_api_java;
+package com.example.githubapi;
 
 import io.github.cdimascio.dotenv.Dotenv;
 import org.springframework.boot.SpringApplication;
