@@ -18,7 +18,7 @@
 
 1. Clone the repository:
    ```sh
-   git clone https://github.com/your-username/github-repo-tracker.git
+   git clone https://github.com/viiccavalcante/github-api-java.git
    ```
 2. Configure DB environment variables in `.env`
    ```sh
