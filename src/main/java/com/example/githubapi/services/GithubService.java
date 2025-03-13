@@ -40,9 +40,24 @@ public class GithubService {
 
             return dto;
         } catch (HttpClientErrorException.NotFound e) {
-            throw new RuntimeException("Repo not found: " + owner + "/" + repoName);
+            return null;
         } catch (Exception e) {
-            throw new RuntimeException("Error", e);
+            return null;
+        }
+    }
+
+    private int getStatsFromRepo(String owner, String repoName, String type) {
+        String url = String.format("https://api.github.com/repos/%s/%s/%s", owner, repoName, type);
+
+        try {
+            ResponseEntity<String> response = restTemplate.getForEntity(url, String.class);
+            JsonNode rootNode = objectMapper.readTree(response.getBody());
+
+            return rootNode.isArray() ? rootNode.size() : 0;
+        } catch (HttpClientErrorException.NotFound e) {
+            return 0;
+        } catch (Exception e) {
+            throw new RuntimeException("Error to find " + type, e);
         }
     }
 

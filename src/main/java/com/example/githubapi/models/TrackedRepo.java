@@ -5,7 +5,9 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 @Entity
-@Table(name = "tracked_repository")
+@Table( name = "tracked_repository",
+        uniqueConstraints = @UniqueConstraint(columnNames = {"email", "repo_id"}))
+
 public class TrackedRepo {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -75,9 +77,9 @@ public class TrackedRepo {
     }
 
     public enum AlertsType {
-        COMMIT,
-        PULL_REQUEST,
-        ISSUE,
-        RELEASE
+        COMMITS,
+        PULLS,
+        ISSUES,
+        RELEASES
     }
 }

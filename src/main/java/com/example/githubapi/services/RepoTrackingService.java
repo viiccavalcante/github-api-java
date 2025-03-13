@@ -10,6 +10,8 @@ import com.example.githubapi.repositories.TrackedRepoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
+
 @Service
 public class RepoTrackingService {
 
@@ -20,7 +22,7 @@ public class RepoTrackingService {
 
     @Autowired
     public RepoTrackingService(TrackedRepoRepository repoTrackingRepository, RepoInformationRepository repoInformationRepository,
-     GithubService githubService, DtoToRepoInformationMapper dtoToRepoInformationMapper) {
+                               GithubService githubService, DtoToRepoInformationMapper dtoToRepoInformationMapper) {
         this.repoTrackingRepository = repoTrackingRepository;
         this.repoInformationRepository = repoInformationRepository;
         this.githubService = githubService;
@@ -28,7 +30,7 @@ public class RepoTrackingService {
 
     }
 
-    public TrackedRepo createRepository(RepoTrackingRequestDto repoTrackingRequestDTO) {
+    public TrackedRepo trackRepository(RepoTrackingRequestDto repoTrackingRequestDTO) {
 
         RepoGithubResponseDto repoGithubResponseDto = githubService.getRepoIfExists(
                 repoTrackingRequestDTO.getRepoOwner(),
@@ -40,7 +42,8 @@ public class RepoTrackingService {
         }
 
         RepoInformation repoInformation = dtoToRepoInformationMapper.toEntity(repoGithubResponseDto);
-        repoInformationRepository.save(repoInformation);
+
+        repoInformation = repoInformationRepository.saveIfDoesNotExist(repoInformation);
 
         TrackedRepo trackedRepo = new TrackedRepo();
         trackedRepo.setEmail(repoTrackingRequestDTO.getEmail());
@@ -50,6 +53,10 @@ public class RepoTrackingService {
         repoTrackingRepository.save(trackedRepo);
 
         return trackedRepo;
+    }
+
+    public Optional<RepoInformation> getRepositoryById(Long repoId) {
+        return repoInformationRepository.findById(repoId);
     }
 
     public boolean deleteTrackedRepository(Long trackedRepoId) {
@@ -66,4 +73,5 @@ public class RepoTrackingService {
         }
         return false;
     }
+
 }

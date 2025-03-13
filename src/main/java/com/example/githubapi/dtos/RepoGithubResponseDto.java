@@ -30,4 +30,15 @@ public class RepoGithubResponseDto {
     }
 
 
+    public String getRepoName() {
+        return repoName;
+    }
+
+    public String getRepoOwner() {
+        return repoOwner;
+    }
+
+    public String getDescription() {
+        return description;
+    }
 }
