@@ -61,7 +61,7 @@ But I didn't have time to implement sending the alerts to the users.
 
 ### Remove tracking
 
-**DELETE** `/api/track/{trackedRepoId}`
+**DELETE** `/api/tracked/{trackedRepoId}`
 
 ## Scheduled Tasks
 
