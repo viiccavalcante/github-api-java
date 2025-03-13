@@ -77,11 +77,12 @@ public class RepoTrackingService {
 
             Long repoId = tracked.getRepo().getId();
 
-            if(repoTrackingRepository.countByRepoId(repoId) == 1){
-                repoInformationRepository.deleteById(repoId);
-            }
-
             repoTrackingRepository.deleteById(trackedRepoId);
+
+            if(repoTrackingRepository.countByRepoId(repoId) == 0){
+                repoInformationRepository.deleteById(repoId);
+
+            }
             return true;
         }
         return false;
