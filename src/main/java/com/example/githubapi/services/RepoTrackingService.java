@@ -10,7 +10,9 @@ import com.example.githubapi.repositories.TrackedRepoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class RepoTrackingService {
@@ -59,6 +61,15 @@ public class RepoTrackingService {
         return repoInformationRepository.findById(repoId);
     }
 
+    public List<RepoInformation> getAllTrackedByEmail(String email) {
+        List<RepoInformation> trackedRepos = repoTrackingRepository.findByEmail(email)
+                .stream()
+                .map(TrackedRepo::getRepo)
+                .collect(Collectors.toList());
+
+        return trackedRepos;
+    }
+
     public boolean deleteTrackedRepository(Long trackedRepoId) {
         if (repoTrackingRepository.existsById(trackedRepoId)) {
             TrackedRepo tracked = repoTrackingRepository.findById(trackedRepoId)
@@ -66,12 +77,13 @@ public class RepoTrackingService {
 
             Long repoId = tracked.getRepo().getId();
 
-            repoTrackingRepository.deleteById(trackedRepoId);
-            repoInformationRepository.deleteById(repoId);
+            if(repoTrackingRepository.countByRepoId(repoId) == 1){
+                repoInformationRepository.deleteById(repoId);
+            }
 
+            repoTrackingRepository.deleteById(trackedRepoId);
             return true;
         }
         return false;
     }
-
 }

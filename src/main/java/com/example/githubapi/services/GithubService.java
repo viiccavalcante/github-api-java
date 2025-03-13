@@ -37,6 +37,7 @@ public class GithubService {
             dto.setDescription(rootNode.has("description") && !rootNode.get("description").isNull()
                     ? rootNode.get("description").asText() : "");
             dto.setUrl(rootNode.get("html_url").asText());
+            dto.setLanguage(rootNode.get("language").asText());
 
             return dto;
         } catch (HttpClientErrorException.NotFound e) {
@@ -46,7 +47,7 @@ public class GithubService {
         }
     }
 
-    private int getStatsFromRepo(String owner, String repoName, String type) {
+    public int getStatsFromRepo(String owner, String repoName, String type) {
         String url = String.format("https://api.github.com/repos/%s/%s/%s", owner, repoName, type);
 
         try {
@@ -57,7 +58,7 @@ public class GithubService {
         } catch (HttpClientErrorException.NotFound e) {
             return 0;
         } catch (Exception e) {
-            throw new RuntimeException("Error to find " + type, e);
+            return 0;
         }
     }
 

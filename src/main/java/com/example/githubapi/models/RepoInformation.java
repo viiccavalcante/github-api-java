@@ -23,17 +23,20 @@ public class RepoInformation {
     @Column(nullable = false)
     private String url;
 
-/*    @Column
+    @Column(nullable = false)
+    private String language;
+
+    @Column
     private int totalCommits;
 
     @Column
-    private int openPullRequests;
+    private int totalPullRequests;
 
     @Column
-    private int openIssues;
+    private int totalIssues;
 
     @Column
-    private int totalReleases;*/
+    private int totalReleases;
 
     @Column(nullable = false, updatable = false)
     private LocalDateTime createdAt;
@@ -96,7 +99,15 @@ public class RepoInformation {
         this.url = url;
     }
 
-/*    public int getTotalCommits() {
+    public String getLanguage() {
+        return language;
+    }
+
+    public void setLanguage(String language) {
+        this.language = language;
+    }
+
+    public int getTotalCommits() {
         return totalCommits;
     }
 
@@ -104,27 +115,27 @@ public class RepoInformation {
         this.totalCommits = totalCommits;
     }
 
-    public int getOpenPullRequests() {
-        return openPullRequests;
+    public int getTotalPullRequests() {
+        return totalPullRequests;
     }
 
-    public void setOpenPullRequests(int openPullRequests) {
-        this.openPullRequests = openPullRequests;
+    public void setTotalPullRequests(int totalPullRequests) {
+        this.totalPullRequests = totalPullRequests;
     }
 
-    public int getOpenIssues() {
-        return openIssues;
+    public int getTotalIssues() {
+        return totalIssues;
     }
 
-    public void setOpenIssues(int openIssues) {
-        this.openIssues = openIssues;
+    public void setTotalIssues(int totalIssues) {
+        this.totalIssues = totalIssues;
     }
 
     public int getTotalReleases() {
         return totalReleases;
-    }*/
+    }
 
-/*    public void setTotalReleases(int totalReleases) {
+    public void setTotalReleases(int totalReleases) {
         this.totalReleases = totalReleases;
-    }*/
+    }
 }

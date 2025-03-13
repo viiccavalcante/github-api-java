@@ -9,6 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import jakarta.validation.Valid;
 
+import java.util.List;
 import java.util.Optional;
 
 @RestController
@@ -41,5 +42,11 @@ public class RepoTrackingController {
         boolean isDeleted = repoTrackingService.deleteTrackedRepository(trackedRepoId);
         return isDeleted ? new ResponseEntity<>("Untracked", HttpStatus.OK)
                 : new ResponseEntity<>(HttpStatus.NOT_FOUND);
+    }
+
+    @GetMapping("/all-tracked/{email}")
+    public ResponseEntity<List<RepoInformation>> getAllTrackedByEmail(@PathVariable String email) {
+        List<RepoInformation> trackedRepos = repoTrackingService.getAllTrackedByEmail(email);
+        return ResponseEntity.ok(trackedRepos);
     }
 }

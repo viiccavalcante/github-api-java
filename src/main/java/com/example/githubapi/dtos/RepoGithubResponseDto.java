@@ -5,6 +5,7 @@ public class RepoGithubResponseDto {
     private String repoOwner;
     private String description;
     private String url;
+    private String language;
 
     public RepoGithubResponseDto() {
     }
@@ -29,7 +30,6 @@ public class RepoGithubResponseDto {
         this.url = url;
     }
 
-
     public String getRepoName() {
         return repoName;
     }
@@ -40,5 +40,13 @@ public class RepoGithubResponseDto {
 
     public String getDescription() {
         return description;
+    }
+
+    public String getLanguage() {
+        return language;
+    }
+
+    public void setLanguage(String language) {
+        this.language = language;
     }
 }
