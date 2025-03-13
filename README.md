@@ -56,7 +56,7 @@ But I didn't have time to implement sending the alerts to the users.
 
 ### Get tracked repository by ID
 
-**GET** `/api/tracked/{trackedRepoId}`
+**GET** `/api/tracked/{repoId}`
 
 
 ### Remove tracking
